@@ -1,0 +1,12 @@
+(let [x (sample (normal 0 1))
+      x2 (sample (gamma 2 4))]
+  (if (> x 0)
+    (if (< x 1)
+      (observe (normal x 1) 1)
+      (observe (normal x2 1) 1))
+    (if (> x -1)
+      (if (< x2 5)
+        (observe (normal 1 4) 2)
+        (observe (gamma x2 (+ 2 x)) 1))
+      (observe (normal -2 1) 1)))
+  x x2)
