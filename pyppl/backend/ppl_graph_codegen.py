@@ -71,6 +71,7 @@ class GraphCodeGenerator(object):
             has_dist = False
             uses_numpy = False
             uses_torch = False
+            uses_pyfo = False
             for s in imports.split('\n'):
                 s = s.strip()
                 if s.endswith(' dist') or s.endswith('.dist'):
@@ -85,11 +86,14 @@ class GraphCodeGenerator(object):
                 m = s[:i]
                 uses_numpy = uses_numpy or m == 'numpy'
                 uses_torch = uses_torch or m == 'torch'
+                uses_pyfo  = uses_pyfo  or m == 'pyfo'
             if uses_torch or uses_numpy:
                 self.logpdf_suffix = ''
             if not has_dist:
-                if uses_torch:
+                if uses_torch and uses_pyfo:
                     return 'import pyfo.distributions as dist\n'
+                else:
+                    return 'import torch.distributions as dist\n'
         return ''
 
 

@@ -4,7 +4,7 @@
 # License: MIT (see LICENSE.txt)
 #
 # 20. Dec 2017, Tobias Kohn
-# 11. May 2018, Tobias Kohn
+# 07. Jun 2018, Tobias Kohn
 #
 from typing import Optional
 from . import distributions
