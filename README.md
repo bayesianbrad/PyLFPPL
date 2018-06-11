@@ -26,6 +26,8 @@ pip install .
 The project requires at least Python 3.4, and has been tested mostly under 
 Python 3.6.
 
+See the [pysppl walkthrough notebook](examples/pysppl_walkthrough) for an interactive experience.
+
 In order to compile a model from a program (either Python- or Clojure-based), import
 the package and use `compile_model()` or `compile_model_from_file()`, respectively.
 The returned object is an instance of the `Model`-class, containing the graphical
