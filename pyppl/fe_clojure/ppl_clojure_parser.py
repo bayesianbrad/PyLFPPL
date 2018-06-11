@@ -401,7 +401,7 @@ class ClojureParser(clj.Visitor):
                 return AstSubscript(args[0], AstValue(n[1:]))
 
             elif n in self.__core_functions__:
-                return AstCall(AstSymbol('clojure.core.' + n), args)
+                return AstCall(AstSymbol('clojure.core.' + n, predef=True), args)
 
         return AstCall(function, args)
 
