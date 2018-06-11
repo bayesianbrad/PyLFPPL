@@ -13,6 +13,13 @@ The current project has been used in some limited research projects, but has not
 been extensively tested. It might not be ready for full production use, i.e. expect
 some parts to be still missing, especially in corner cases.
 
+## Installation
+
+```python
+git clone https://github.com/bradleygramhansen/PySPPL.git
+cd PySPPL
+pip install .
+```
 
 ## Basic Usage
 

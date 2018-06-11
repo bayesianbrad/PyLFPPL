@@ -9,3 +9,4 @@ tqdm>=4.19
 texttable>-1.2
 torch>=0.4.0
 torchvision
+jupyter
