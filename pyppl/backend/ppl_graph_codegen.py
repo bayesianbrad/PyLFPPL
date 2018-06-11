@@ -93,7 +93,7 @@ class GraphCodeGenerator(object):
                 if uses_torch and uses_pyfo:
                     return 'import pyfo.distributions as dist\n'
                 else:
-                    return 'import torch.distributions as dist\n'
+                    return 'import torch\nimport torch.distributions as dist\n'
         return ''
 
 
