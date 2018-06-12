@@ -117,19 +117,19 @@ class GraphCodeGenerator(object):
             except:
                 pass
 
-        try:
-            graph_module = 'pyppl.aux.graph_plots'
-            m = importlib.import_module(graph_module)
-            names = [n for n in dir(m) if not n.startswith('_')]
-            if len(names) > 1:
-                names = [n for n in names if n[0].isupper()]
-            if len(names) == 1:
-                if base_class != '':
-                    base_class += ', '
-                base_class += '_' + names[0]
-                imports = "from {} import {} as _{}\n".format(graph_module, names[0], names[0]) + imports
-        except ModuleNotFoundError:
-            pass
+        # try:
+        #     graph_module = 'pyppl.aux.graph_plots'
+        #     m = importlib.import_module(graph_module)
+        #     names = [n for n in dir(m) if not n.startswith('_')]
+        #     if len(names) > 1:
+        #         names = [n for n in names if n[0].isupper()]
+        #     if len(names) == 1:
+        #         if base_class != '':
+        #             base_class += ', '
+        #         base_class += '_' + names[0]
+        #         imports = "from {} import {} as _{}\n".format(graph_module, names[0], names[0]) + imports
+        # except ModuleNotFoundError:
+        #     pass
 
         imports = self._complete_imports(imports) + imports
 
