@@ -1,8 +1,8 @@
-{(defn data [n]
+(defn data [n]
   (let [points (vector 0.9 0.8 0.7 0.0 -0.025
                        5.0 2.0 0.1 0.0 0.13
                        0.45 6.0 0.2 0.3 -1.0 -1.0)]
-    (get points n)))}
+    (get points n)))
 
 ;; Define the init, transition, and observation distributions
 (defn get-init-params []
@@ -27,4 +27,3 @@
 ;; Loop through the data
 (let [init-state (sample (categorical (get-init-params)))]
   (loop 16 (vector init-state) hmm-step))
-

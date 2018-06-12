@@ -26,8 +26,39 @@ model_if_clojure="""
   [x1 x2])
 """
 
+model_hmm_clojure="""
+(defn data [n]
+  (let [points (vector 0.9 0.8 0.7 0.0 -0.025
+                       5.0 2.0 0.1 0.0 0.13
+                       0.45 6.0 0.2 0.3 -1.0 -1.0)]
+    (get points n)))
 
-compiled_clojure = compile_model(model_if_clojure, language='clojure')
+;; Define the init, transition, and observation distributions
+(defn get-init-params []
+  (vector (/ 1. 3.) (/ 1. 3.) (/ 1. 3.)))
+
+(defn get-trans-params [k]
+  (nth (vector (vector 0.1  0.5  0.4 )
+               (vector 0.2  0.2  0.6 )
+               (vector 0.7 0.15 0.15 )) k))
+
+(defn get-obs-dist [k]
+  (nth (vector (normal -1. 1.)
+               (normal  1. 1.)
+               (normal  0. 1.)) k))
+
+;; Function to step through HMM and sample latent state
+(defn hmm-step [n states]
+  (let [next-state (sample (categorical (get-trans-params (last states))))]
+    (observe (get-obs-dist next-state) (data n))
+    (conj states next-state)))
+
+;; Loop through the data
+(let [init-state (sample (categorical (get-init-params)))]
+  (loop 16 (vector init-state) hmm-step))
+
+"""
+compiled_clojure = compile_model(model_hmm_clojure, language='clojure')
 print(compiled_clojure.code)
 vertices = compiled_clojure.vertices
 create_network_graph(vertices=vertices)
@@ -42,7 +73,45 @@ x = sample(normal(torch.zeros(n,d), torch.ones(n,d)))
 x
 """
 
+model_hmm_python="""
+import torch
+# def data(k):
+#     points = torch.tensor([0.9, 0.8, 0.7, 0.0, -0.025,
+#                        5.0, 2.0, 0.1, 0.0, 0.13,
+#                        0.45, 6.0, 0.2, 0.3, -1.0, -1.0])
+#     return points[k]
 
+# Define the init, transition, and observation distributions
+# def get_init_params():
+#     return torch.tensor([1/3, 1/3, 1/3])
+
+# def get_trans_params(k):
+#     transition = torch.tensor([[0.1, 0.5, 0.4], [0.2, 0.2, 0.6], [0.7, 0.15, 0.15]])
+#     return transition[:,k]
+
+# def get_obs_dist(k):
+#     observe = [normal(-1., 1.), normal(1.,1.), normal(0.,1.)]
+#     return observe[k]
+
+# Function to step through HMM and sample latent state
+
+def hmm_step(k, states):
+    transition = torch.tensor([[0.1, 0.5, 0.4], [0.2, 0.2, 0.6], [0.7, 0.15, 0.15]])
+    
+    next_state = sample(categorical(transition[:,states[-1]]))
+    observe = [normal(-1., 1.), normal(1., 1.), normal(0., 1.)]
+    points = torch.tensor([0.9, 0.8, 0.7, 0.0, -0.025,
+                           5.0, 2.0, 0.1, 0.0, 0.13,
+                           0.45, 6.0, 0.2, 0.3, -1.0, -1.0])
+    observe(observe[next_state], points[k])
+    return states.append(next_state)
+
+# Loop through the data
+init_state = sample(categorical(probs=torch.tensor([1/3, 1/3, 1/3])))
+states = [init_state]
+for i in range(16):
+    states = hmm_step(i,states)
+"""
 model_neural_net ="""
 import torch
 latent_dim = 2
@@ -83,12 +152,13 @@ result = []
 # unclear from original model.
 result.append( flip(1, probs=sigmoid(torch.mm(V.t(), h) + c)))
 
-"""
-compiled_python = compile_model(model_neural_net, language='python', imports='')
-
-print(compiled_python.code)
-print(compiled_python.display_graph)
-print(dir(compiled_python))
-vertices = compiled_python.vertices
-create_network_graph(vertices=vertices)
-display_graph(vertices=vertices)
+# """
+#
+# compiled_python = compile_model(model_hmm_python, language='python', imports='')
+#
+# print(compiled_python.code)
+# print(compiled_python.display_graph)
+# print(dir(compiled_python))
+# vertices = compiled_python.vertices
+# create_network_graph(vertices=vertices)
+# display_graph(vertices=vertices)
