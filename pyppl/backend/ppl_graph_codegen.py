@@ -272,21 +272,21 @@ class GraphCodeGenerator(object):
         logpdf_code.append("return log_pdf")
         return 'state', '\n'.join(logpdf_code)
 
-    def gen_log_pdf_transformed(self):
-        def code_for_vertex(name: str, node: Vertex):
-            cond_code = node.get_cond_code(state_object=self.state_object)
-            if cond_code is not None:
-                result = cond_code + "log_pdf = log_pdf + dst_.log_pdf({})".format(name)
-            else:
-                result = "log_pdf = log_pdf + dst_.log_pdf({})".format(name)
-            if self.logpdf_suffix is not None:
-                result += self.logpdf_suffix
-            return result
-        # Note to self : To change suffix for torch or numpy look at line 87-88 in compiled imports (above)
-        logpdf_code = ["log_pdf = 0"]
-        self._gen_code(logpdf_code, code_for_vertex=code_for_vertex, want_data_node=False, flags={'transformed': True})
-        logpdf_code.append("return log_pdf.sum()")
-        return 'state', '\n'.join(logpdf_code)
+    # def gen_log_pdf_transformed(self):
+    #     def code_for_vertex(name: str, node: Vertex):
+    #         cond_code = node.get_cond_code(state_object=self.state_object)
+    #         if cond_code is not None:
+    #             result = cond_code + "log_pdf = log_pdf + dst_.log_pdf({})".format(name)
+    #         else:
+    #             result = "log_pdf = log_pdf + dst_.log_pdf({})".format(name)
+    #         if self.logpdf_suffix is not None:
+    #             result += self.logpdf_suffix
+    #         return result
+    #     # Note to self : To change suffix for torch or numpy look at line 87-88 in compiled imports (above)
+    #     logpdf_code = ["log_pdf = 0"]
+    #     self._gen_code(logpdf_code, code_for_vertex=code_for_vertex, want_data_node=False, flags={'transformed': True})
+    #     logpdf_code.append("return log_pdf.sum()")
+    #     return 'state', '\n'.join(logpdf_code)
 
     def gen_prior_samples(self):
 
