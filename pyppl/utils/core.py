@@ -32,6 +32,7 @@ def create_network_graph(vertices):
         return G
     else:
         return None
+
 def display_graph(vertices):
     """
     Transform the graph to a `networkx.DiGraph`-structure and display it using `matplotlib` -- if the necessary
@@ -54,23 +55,26 @@ def display_graph(vertices):
         _plt.axis('off')
         _nx.draw_networkx_nodes(G, pos,
                                 node_color='r',
-                                node_size=1250,
-                                nodelist=[v.display_name for v in vertices if v.is_sampled])
+                                node_size=500,
+                                nodelist=[v.display_name for v in vertices if v.is_sampled],
+                                alpha=0.5)
         _nx.draw_networkx_nodes(G, pos,
                                 node_color='b',
-                                node_size=1250,
-                                nodelist=[v.display_name for v in vertices if v.is_observed])
+                                node_size=500,
+                                nodelist=[v.display_name for v in vertices if v.is_observed],
+                                alpha=0.5)
 
         for v in vertices:
-            _nx.draw_networkx_edges(G, pos, arrows=True,
+            _nx.draw_networkx_edges(G, pos, arrows=True,arrowsize=22,
                                     edgelist=[(a.display_name, v.display_name) for a in v.ancestors])
             if v.condition_ancestors is not None and len(v.condition_ancestors) > 0:
                 _is_conditioned = 1
                 _nx.draw_networkx_edges(G, pos, arrows=True,
                                         style='dashed',
                                         edge_color='g',
+                                        alpha=0.5,
                                         edgelist=[(a.display_name, v.display_name) for a in v.condition_ancestors])
-        _nx.draw_networkx_labels(G, pos, font_color='w', font_weight='bold')
+        _nx.draw_networkx_labels(G, pos, font_size=8, font_color='k', font_weight='bold')
 
         # for node, _ in G.nodes():
         red_patch = mpatches.Circle((0,0), radius=2, color='r', label='Sampled Variables')
