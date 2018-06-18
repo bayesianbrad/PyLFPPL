@@ -58,12 +58,12 @@ class base_model(ABC):
         return NotImplementedError
 
     @abstractmethod
-    def gen_log_pdf(self):
+    def gen_log_prob(self):
         return NotImplementedError
 
-    @abstractmethod
-    def gen_log_pdf_transformed(self):
-        return NotImplementedError
+    # @abstractmethod
+    # def gen_log_prob_transformed(self):
+    #     return NotImplementedError
 
     @abstractmethod
     def gen_prior_samples(self):

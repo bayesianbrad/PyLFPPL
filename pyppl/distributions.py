@@ -71,8 +71,8 @@ distributions = {
     Distribution('MultivariateNormal',
                                 DistributionType.CONTINUOUS, ['mu', 'covariance_matrix'], vector_sample=True, foppl_name='mvn'),
     Distribution('Normal',      DistributionType.CONTINUOUS, ['loc', 'scale']),
-    Distribution('Poisson',     DistributionType.DISCRETE,   ['lam']),
-    Distribution('Uniform',     DistributionType.CONTINUOUS, ['a', 'b'])
+    Distribution('Poisson',     DistributionType.DISCRETE,   ['rate']),
+    Distribution('Uniform',     DistributionType.CONTINUOUS, ['low', 'high'])
 }
 
 namespace = {
