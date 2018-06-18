@@ -23,6 +23,7 @@ def create_network_graph(vertices):
     Create a `networkx` graph. Used by the method `display_graph()`.
     :return: Either a `networkx.DiGraph` instance or `None`.
     """
+    print(vertices)
     if _nx:
         G = _nx.DiGraph()
         for v in vertices:
@@ -69,7 +70,7 @@ def display_graph(vertices):
                                     edgelist=[(a.display_name, v.display_name) for a in v.ancestors])
             if v.condition_ancestors is not None and len(v.condition_ancestors) > 0:
                 _is_conditioned = 1
-                _nx.draw_networkx_edges(G, pos, arrows=True,
+                _nx.draw_networkx_edges(G, pos, arrows=True, arrowsize=22,
                                         style='dashed',
                                         edge_color='g',
                                         alpha=0.5,
