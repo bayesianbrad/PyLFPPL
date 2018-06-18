@@ -58,12 +58,24 @@ model_hmm_clojure="""
   (loop 16 (vector init-state) hmm-step))
 
 """
-compiled_clojure = compile_model(model_hmm_clojure, language='clojure')
+compiled_clojure = compile_model(model_if_clojure, language='clojure')
 print(compiled_clojure.code)
 vertices = compiled_clojure.vertices
 create_network_graph(vertices=vertices)
 display_graph(vertices=vertices)
 
+model_if_python="""
+x1 = sample(normal(0, 1))
+x2 = sample(categorical([0.1, 0.2, 0.7]))
+y1 =  7
+if x1 > 0:
+    if x2 > 1:
+        observe(normal(x1,1),y1)
+        observe(normal(x1 + x2, 2), y1)
+    else:
+        observe(normal(x2,1),y1)
+[x1, x2]
+"""
 model_python="""
 import torch
 
@@ -154,11 +166,10 @@ result.append( flip(1, probs=sigmoid(torch.mm(V.t(), h) + c)))
 
 # """
 #
-# compiled_python = compile_model(model_hmm_python, language='python', imports='')
-#
-# print(compiled_python.code)
-# print(compiled_python.display_graph)
+compiled_python = compile_model(model_if_python, language='python', imports='')
+
+print(compiled_python.code)
 # print(dir(compiled_python))
-# vertices = compiled_python.vertices
-# create_network_graph(vertices=vertices)
-# display_graph(vertices=vertices)
+vertices = compiled_python.vertices
+create_network_graph(vertices=vertices)
+display_graph(vertices=vertices)
