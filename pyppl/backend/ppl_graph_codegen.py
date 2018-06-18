@@ -16,7 +16,7 @@ class GraphCodeGenerator(object):
     """
     In contrast to the more general code generator `CodeGenerator`, this class creates the code for a graph-based
     model. The output of the method `generate_model_code()` is therefore the code of a class `Model` with functions
-    such as `gen_log_pdf()` or `gen_prior_samples()`, including all necessary imports.
+    such as `gen_log_prob()` or `gen_prior_samples()`, including all necessary imports.
 
     You want to change this class if you need additional (or adapted) methods in your model-class.
 
@@ -256,36 +256,36 @@ class GraphCodeGenerator(object):
                 code = "{} = {}".format(name, node.get_code())
                 buffer.append(code)
 
-    def gen_log_pdf(self):
+    def gen_log_prob(self):
         def code_for_vertex(name: str, node: Vertex):
             cond_code = node.get_cond_code(state_object=self.state_object)
             if cond_code is not None:
-                result = cond_code + "log_pdf = log_pdf + dst_.log_pdf({})".format(name)
+                result = cond_code + "log_prob = log_prob + dst_.log_prob({})".format(name)
             else:
-                result = "log_pdf = log_pdf + dst_.log_pdf({})".format(name)
+                result = "log_prob = log_prob + dst_.log_prob({})".format(name)
             if self.logpdf_suffix is not None:
                 result = result + self.logpdf_suffix
             return result
 
-        logpdf_code = ["log_pdf = 0"]
+        logpdf_code = ["log_prob = 0"]
         self._gen_code(logpdf_code, code_for_vertex=code_for_vertex, want_data_node=False)
-        logpdf_code.append("return log_pdf")
+        logpdf_code.append("return log_prob")
         return 'state', '\n'.join(logpdf_code)
 
-    # def gen_log_pdf_transformed(self):
+    # def gen_log_prob_transformed(self):
     #     def code_for_vertex(name: str, node: Vertex):
     #         cond_code = node.get_cond_code(state_object=self.state_object)
     #         if cond_code is not None:
-    #             result = cond_code + "log_pdf = log_pdf + dst_.log_pdf({})".format(name)
+    #             result = cond_code + "log_prob = log_prob + dst_.log_prob({})".format(name)
     #         else:
-    #             result = "log_pdf = log_pdf + dst_.log_pdf({})".format(name)
+    #             result = "log_prob = log_prob + dst_.log_prob({})".format(name)
     #         if self.logpdf_suffix is not None:
     #             result += self.logpdf_suffix
     #         return result
     #     # Note to self : To change suffix for torch or numpy look at line 87-88 in compiled imports (above)
-    #     logpdf_code = ["log_pdf = 0"]
+    #     logpdf_code = ["log_prob = 0"]
     #     self._gen_code(logpdf_code, code_for_vertex=code_for_vertex, want_data_node=False, flags={'transformed': True})
-    #     logpdf_code.append("return log_pdf.sum()")
+    #     logpdf_code.append("return log_prob.sum()")
     #     return 'state', '\n'.join(logpdf_code)
 
     def gen_prior_samples(self):
