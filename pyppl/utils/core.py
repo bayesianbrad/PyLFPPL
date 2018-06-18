@@ -23,7 +23,6 @@ def create_network_graph(vertices):
     Create a `networkx` graph. Used by the method `display_graph()`.
     :return: Either a `networkx.DiGraph` instance or `None`.
     """
-    print(vertices)
     if _nx:
         G = _nx.DiGraph()
         for v in vertices:
