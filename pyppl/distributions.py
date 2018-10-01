@@ -72,7 +72,13 @@ distributions = {
                                 DistributionType.CONTINUOUS, ['mean', 'covariance_matrix'], vector_sample=True, foppl_name='mvn'),
     Distribution('Normal',      DistributionType.CONTINUOUS, ['loc', 'scale']),
     Distribution('Poisson',     DistributionType.DISCRETE,   ['rate']),
-    Distribution('Uniform',     DistributionType.CONTINUOUS, ['low', 'high'])
+    Distribution('Uniform',     DistributionType.CONTINUOUS, ['low', 'high']),
+    Distribution('Exp', DistributionType.CONTINUOUS, ['values'], foppl_name='Exp'),
+    Distribution('Log', DistributionType.CONTINUOUS, ['values'], foppl_name='Log'),
+    Distribution('Sin', DistributionType.CONTINUOUS, ['theta'], foppl_name='Sin'),
+    Distribution('Cos', DistributionType.CONTINUOUS, ['theta'], foppl_name='Cos'),
+    Distribution('Poly', DistributionType.CONTINUOUS, ['coeff', 'order'], foppl_name='Poly')
+
 }
 
 namespace = {
