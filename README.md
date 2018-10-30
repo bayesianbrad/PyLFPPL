@@ -1,4 +1,4 @@
-# PyLFPPLCompiler
+# PyLFPPL Compiler
 _A simple compiler to create graphical models out of a subset of Python code._ 
 
 This compiler is part of the [Pyfo](https://github.com/bradleygramhansen/pyfo)-project.
