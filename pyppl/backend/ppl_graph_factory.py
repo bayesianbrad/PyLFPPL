@@ -11,6 +11,7 @@ from ..graphs import *
 from .ppl_code_generator import CodeGenerator
 from .ppl_graph_codegen import GraphCodeGenerator
 from .. import distributions
+import warnings
 
 
 class _ConditionCollector(Visitor):
@@ -146,6 +147,8 @@ def _get_dist_name(dist: AstNode):
         result = dist.function_name
         if result.startswith('dist.'):
             result = result[5:]
+            if result == 'factor_cont' or result =='factor_disc':
+                warnings.warn('{0}compiler cannot guarentee that the function is analytic, as factor is being called{0}\n'.format(10*'*'), stacklevel=2)
         return result
     elif isinstance(dist, AstSubscript):
         if isinstance(dist.base, AstVector):

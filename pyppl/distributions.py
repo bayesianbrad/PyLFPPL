@@ -53,7 +53,6 @@ class Distribution(object):
 
 
 #########################################################################
-
 distributions = {
     Distribution('Bernoulli',   DistributionType.DISCRETE,   ['probs']),
     Distribution('Beta',        DistributionType.CONTINUOUS, ['alpha', 'beta']),
@@ -77,7 +76,9 @@ distributions = {
     Distribution('Log', DistributionType.CONTINUOUS, ['values'], foppl_name='Log'),
     Distribution('Sin', DistributionType.CONTINUOUS, ['theta'], foppl_name='Sin'),
     Distribution('Cos', DistributionType.CONTINUOUS, ['theta'], foppl_name='Cos'),
-    Distribution('Poly', DistributionType.CONTINUOUS, ['coeff', 'order'], foppl_name='Poly')
+    Distribution('Poly', DistributionType.CONTINUOUS, ['coeff', 'order'], foppl_name='Poly'),
+    Distribution('factor_cont', DistributionType.CONTINUOUS, ['log_p'] ),
+    Distribution('factor_disc', DistributionType.DISCRETE, ['log_p'] )
 
 }
 
