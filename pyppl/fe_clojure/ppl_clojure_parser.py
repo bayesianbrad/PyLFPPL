@@ -26,6 +26,8 @@ class ClojureParser(clj.Visitor):
         'map',
         'prepend',
         'reduce',
+        'max',
+        'sqrt',
     }
 
     def parse_alias(self, alias):
