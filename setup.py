@@ -19,10 +19,10 @@ MAINTAINER = 'Tobias Kohn ,Bradley Gram-hansen '
 MAINTAINER_EMAIL = 'webmaster@tobiaskohn.ch , bradleygramhansen@gmail.com'
 AUTHOR = 'Tobias Kohn, Bradley Gram-Hansen'
 AUTHOR_EMAIL = 'webmaster@tobiaskohn.ch , bradley@robots.ox.ac.uk'
-URL = "http://github.com/bradleygramhansen/pySPPL"
+URL = "http://github.com/bradleygramhansen/pyLFPPL"
 LICENSE = 'LICENSE.txt'
 VERSION = "0.1.0"
-PACKAGES = ['pysppl']
+PACKAGES = ['pylfppl']
 classifiers = ['Development Status :: 1 - Production/UnStable',
                'Programming Language :: Python',
                'Programming Language :: Python :: 3.6',
