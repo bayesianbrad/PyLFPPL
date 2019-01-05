@@ -148,7 +148,7 @@ def _get_dist_name(dist: AstNode):
         if result.startswith('dist.'):
             result = result[5:]
             if result == 'factor_cont' or result =='factor_disc':
-                warnings.warn('{0}compiler cannot guarentee that the function is analytic, as factor is being called{0}\n'.format(10*'*'), stacklevel=2)
+                warnings.warn('{0}compiler cannot guarantee that the function is analytic, as factor is being called{0}\n'.format(10*'*'), stacklevel=2)
         return result
     elif isinstance(dist, AstSubscript):
         if isinstance(dist.base, AstVector):
