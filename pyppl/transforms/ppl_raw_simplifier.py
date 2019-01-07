@@ -244,7 +244,8 @@ class RawSimplifier(ScopedVisitor):
 
     def visit_sample(self, node: AstSample):
         prefix, dist = self._visit_expr(node.dist)
-        # keep it from being over zealous
+              # keep it from being over zealous
+
         if len(prefix) == 1 and isinstance(prefix[0], AstDef) and isinstance(dist, AstSymbol) and \
                         prefix[0].name == dist.name and isinstance(prefix[0].value, AstCall):
             prefix, dist = [], prefix[0].value

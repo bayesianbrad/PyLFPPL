@@ -128,6 +128,17 @@ class GraphFactory(object):
             trans = None
         name = self.generate_symbol('x')
         code = self._generate_code_for_node(dist)
+
+         # stop the use of factor in sample statements
+        _is_factor = _get_dist_name(dist)
+        if _is_factor.__contains__('factor'):
+            import sys
+            import warnings
+            warnings.warn('{0} Model is not valid {0}'.format(10*'*'), stacklevel=5)
+            warnings.warn('{0} factor statements cannot be placed within sample statements  {0}'.format(10*'*'), stacklevel=5)
+            sys.exit(1)
+
+
         result = Vertex(name, ancestors=parents, distribution_code=code, distribution_name=_get_dist_name(dist),
                         distribution_args=args, distribution_func=func, distribution_transform=trans,
                         distribution_arg_names=arg_names,
@@ -148,7 +159,7 @@ def _get_dist_name(dist: AstNode):
         if result.startswith('dist.'):
             result = result[5:]
             if result == 'factor_cont' or result =='factor_disc':
-                warnings.warn('{0}compiler cannot guarantee that the function is analytic, as factor is being called{0}\n'.format(10*'*'), stacklevel=2)
+                warnings.warn('{0} compiler cannot guarantee that the function is analytic, as factor is being called {0}\n'.format(10*'*'), stacklevel=2)
         return result
     elif isinstance(dist, AstSubscript):
         if isinstance(dist.base, AstVector):
