@@ -14,6 +14,7 @@ class DistributionType(Enum):
 
     CONTINUOUS = "continuous"
     DISCRETE   = "discrete"
+    UNDEFINED = "undefined"
 
 
 #########################################################################
@@ -47,6 +48,10 @@ class Distribution(object):
         return self.distribution_type == DistributionType.DISCRETE
 
     @property
+    def is_undefined(self):
+        return self.distribution_type == DistributionType.UNDEFINED
+
+    @property
     def parameter_count(self):
         return len(self.params)
 
@@ -77,8 +82,7 @@ distributions = {
     Distribution('Sin', DistributionType.CONTINUOUS, ['theta'], foppl_name='Sin'),
     Distribution('Cos', DistributionType.CONTINUOUS, ['theta'], foppl_name='Cos'),
     Distribution('Poly', DistributionType.CONTINUOUS, ['coeff', 'order'], foppl_name='Poly'),
-    Distribution('factor_cont', DistributionType.CONTINUOUS, ['log_p'] ),
-    Distribution('factor_disc', DistributionType.DISCRETE, ['log_p'] )
+    Distribution('factor', DistributionType.UNDEFINED, ['log_p'] )
 
 }
 
