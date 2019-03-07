@@ -260,7 +260,7 @@ class GraphCodeGenerator(object):
         def code_for_vertex(name: str, node: Vertex):
             cond_code = node.get_cond_code(state_object=self.state_object)
             if cond_code is not None:
-                result = cond_code + "log_prob = log_prob + dst_.log_prob({})".format(name)
+                result = cond_code + "\tlog_prob = log_prob + dst_.log_prob({})".format(name)
             else:
                 result = "log_prob = log_prob + dst_.log_prob({})".format(name)
             if self.logpdf_suffix is not None:
@@ -270,7 +270,11 @@ class GraphCodeGenerator(object):
         logpdf_code = ["log_prob = 0"]
         self._gen_code(logpdf_code, code_for_vertex=code_for_vertex, want_data_node=False)
         logpdf_code.append("return log_prob")
-        return 'state', '\n'.join(logpdf_code)
+        logpdf_code.insert(0, "try:")
+        # return 'state', '\n'.join(logpdf_code)
+        code = ['\n\t'.join(logpdf_code), "\nexcept(ValueError, RuntimeError) as e:\n\tprint('****Warning: Target density is ill-defined****')"]
+        return 'state', ''.join(code)
+
 
     # def gen_log_prob_transformed(self):
     #     def code_for_vertex(name: str, node: Vertex):
