@@ -15,18 +15,33 @@ some parts to be still missing, especially in corner cases.
 
 ## Installation
 
+It is best practice to install all libraries in a virtual environment, like conda, or equivalent.
+
+To install machine wide run the following in the command 
+line or terminal. 
+
 ```python
 git clone https://github.com/bradleygramhansen/PyLFPPL.git
 cd PyLFPPL
 pip install .
 ```
+or
+
+```python
+git clone https://github.com/bradleygramhansen/PyLFPPL.git
+pip install -e PyLFPPL
+```
+
+
 
 ## Basic Usage
 
 The project requires at least Python 3.4, and has been tested mostly under 
 Python 3.6.
 
-See the [pylfppl walkthrough notebook](examples/pylfppl_walkthrough.ipynb) for an interactive experience.
+#### Examples
+
+See [pylfppl walkthrough 1 notebook](examples/pylfppl_walkthrough_1.ipynb)  and [pylfppl walkthrough 2 notebook](examples/pylfppl_walkthrough_2.ipynb)for an interactive experience.
 
 In order to compile a model from a program (either Python- or Clojure-based), import
 the package and use `compile_model()` or `compile_model_from_file()`, respectively.
@@ -55,10 +70,8 @@ installed on your system, you can easily get a picture of the graph displayed:
 model.display_graph()
 ```
 
-#### Examples
 
-Further examples of input programs can be found in the 
-[`examples`](examples)-folder. You may want to use `compile_model_from_file()`
+You may want to use `compile_model_from_file()`
 to compile them directly to a model, i. e.:
 ```python
 from pyppl import compile_model_from_file
