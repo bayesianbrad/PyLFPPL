@@ -1,5 +1,4 @@
 # PyLFPPL Compiler
-_A simple compiler to create graphical models out of a subset of Python code._ 
 
 This compiler is part of the [Pyfo](https://github.com/bradleygramhansen/pyfo)-project.
 As the compiler here provides only the frontend to compile a probabilistic program 
@@ -41,7 +40,7 @@ Python 3.6.
 
 #### Examples
 
-See [pylfppl walkthrough 1 notebook](examples/pylfppl_walkthrough_1.ipynb)  and [pylfppl walkthrough 2 notebook](examples/pylfppl_walkthrough_2.ipynb)for an interactive experience.
+See [pylfppl walkthrough 1 notebook](examples/pylfppl_walkthrough_1.ipynb) and [pylfppl walkthrough 2 notebook](examples/pylfppl_walkthrough_2.ipynb) for an interactive experience.
 
 In order to compile a model from a program (either Python- or Clojure-based), import
 the package and use `compile_model()` or `compile_model_from_file()`, respectively.
@@ -79,8 +78,6 @@ from pyppl import compile_model_from_file
 model = compile_model_from_file("examples/my_example.py")
 print(model)
 ```
-See [run_example.py](run_example.py).
-
 
 #### Function `compile_model(source, *, language, namespace)`
 
