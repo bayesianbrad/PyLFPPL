@@ -384,12 +384,14 @@ See [LICENSE](LICENSE).
 ## Citing
 If you use this code, or ideas described in our paper please cite the following:
 
+```
 @article{zhou2019lf,
   title={LF-PPL: A Low-Level First Order Probabilistic Programming Language for Non-Differentiable Models},
   author={Zhou, Yuan* and Gram-Hansen, Bradley J* and Kohn, Tobias and Rainforth, Tom and Yang, Hongseok and Wood, Frank},
   journal={Proceedings of the International Conference on Artificial Intelligence and Statistics (AISTATS), 2019},
   year={2019}
 }
+```
 
 ## Contributors
 - [Tobias Kohn](https://tobiaskohn.ch)
